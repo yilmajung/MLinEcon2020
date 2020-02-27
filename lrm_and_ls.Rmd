@@ -1,0 +1,57 @@
+---
+title: "Linear Regression Models & Least Squares"
+author: "Wooyong Jung (wj710)"
+date: "2/24/2020"
+output: html_document
+---
+
+***This post is for my own study on the basic statistics and most contents are from [the Elements of Statistical Learning (2nd Edition)](https://web.stanford.edu/~hastie/ElemStatLearn/).***
+
+### 3.2 Linear Regression Models and Least Squares
+- Let an input vector $X^T=(X_1, X_2, \dots, X_P)$, then the linear regression model has the form 
+
+$$
+\begin{align}
+f(X) &= \beta_0 + \displaystyle\sum_{j=1}^{p}X_j\beta_j \quad &(3.1) \\
+
+RSS(\beta) &= \sum_{i=1}^{N}(y_i-f(x_i))^2 \\
+&= \sum_{i=1}^{N}(y_i-\beta_0-\sum_{j=1}^{p}x_{ij}\beta_j)^2 \quad &(3.2)
+\end{align}
+$$
+  where each $x_i=(x_{i1}, x_{i2},\dots,x_{ip})^T$ is a vector of feature measurements for the $i$th case.
+  
+- How to Minimize (3.2)?
+$$
+RSS(\beta) = (y-\mathbf{X}\beta)^T(y-\mathbf{X}\beta) \quad (3.3)
+$$
+  where $\mathbf{X}$ is the $N\times(p+1)$ matrix with each row an input vector (with a 1 in the first position). This is a quadratic funciton in the $p+1$ parameters. Differentiating with respect to $\beta$ we obtain
+
+$$
+\begin{align}
+\frac{\partial RSS}{\partial\beta} &= -2\mathbf{X}^T(\mathbf{y}-\mathbf{X}\beta) \\
+\frac{\partial^2 RSS}{\partial\beta\partial\beta^T} &= 2\mathbf{X}^T\mathbf{X} \quad\quad\quad\quad\quad\quad\quad (3.4)
+\end{align}
+$$
+
+  Assuming that $\mathbf{X}$ has full column rank, and hence $\mathbf{X}^T\mathbf{X}$ is positive definite, and we can set the first derivative to zero to obtain
+$$
+\hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} \quad\quad\quad (3.5)
+$$
+  Thus, 
+$$
+\hat{\mathbf{y}}=\mathbf{X}\hat{\beta}=\mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} \quad (3.6)
+$$
+
+where $\mathbf{H}=\mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T$ is often called  the "hat" matrix because it puts the hat on $\mathbf{y}$, or called the projection matrix since it calculates the orthogonal projection of $\mathbf{y}$ onto ths subspace spanned by the column vectors of $\mathbf{X}$.
+
+Because the $Var(\hat{\beta})=(\mathbf{X}^T\mathbf{X})^{-1}\sigma^2$, $\hat{\beta}\sim N(\beta, (\mathbf{X}^T\mathbf{X})^{-1}\sigma^2)$.
+
+
+
+
+
+
+
+
+
+
